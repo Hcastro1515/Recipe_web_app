@@ -3,13 +3,10 @@ console.log("Hello world");
 const form = document.querySelector("form");
 const loadingElement = document.querySelector(".loading");
 const placeholder = document.querySelector(".placeholder");
-
 loadingElement.style.display = "none";
 
 
-
-
-form.addEventListener("submit", async (event) => {
+form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const formData = new FormData(form);
@@ -18,13 +15,19 @@ form.addEventListener("submit", async (event) => {
   const recipePicked = {
     recipe,
   };
-
   placeholder.style.display = "none";
   loadingElement.style.display = "";
-  const api_url = "/query-recipe";
-  const fetchresponse = await fetch_response(api_url);
-  const json = await fetchresponse.json();
-  console.log(json);
+  getData(recipePicked);
   form.reset();
 });
 
+const getData = (searched) => {
+  const API_URL = `http://localhost:5000/search-recipe/${searched}`;
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify(searched),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+};
