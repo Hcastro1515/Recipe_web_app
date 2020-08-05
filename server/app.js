@@ -1,12 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { response } = require("express");
-
-const APP_ID = "b8f84e0d";
-const APP_KEY = "5d5f9698cd7e2903f0ced64ae0770565";
-// var search = "";
-
-const api_url = `https://api.edamam.com/search?q=pizza&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=3&calories=591-722&health=alcohol-free`;
+const request = require("request");
 
 const app = express();
 
@@ -19,10 +13,13 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/search-recipe/:searchKey", (req, res) => {
+app.get("/search-recipe/:searchKey", (req, res) => {
   const searchedKey = req.params.searchKey;
-  console.log(searchedKey);
-  console.log("request", req.body);
+  const api_url = `"https://api.edamam.com/search?q=${searchedKey}&app_id=ae974cde&app_key=32d21aa39aab70de0693ee92316b75f0&from=0&to=10&calories=591-722&health=alcohol-free"`;
+  request(api_url, (error, response, body) => {
+    const parseBody = JSON.parse(body);
+    console.log(parseBody);
+  });
 });
 
 app.listen(5000, () => {
