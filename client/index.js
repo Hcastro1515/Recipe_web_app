@@ -27,5 +27,5 @@ const getRecipeSearched = (searched) => {
     headers: {
       "content-type": "application/json",
     },
-  });
+  })
 };

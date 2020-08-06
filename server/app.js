@@ -15,13 +15,17 @@ app.get("/", (req, res) => {
 
 app.get("/search-recipe/:searchKey", (req, res) => {
   const searchedKey = req.params.searchKey;
-  const api_url = `"https://api.edamam.com/search?q=${searchedKey}&app_id=ae974cde&app_key=32d21aa39aab70de0693ee92316b75f0&from=0&to=10&calories=591-722&health=alcohol-free"`;
-  request(api_url, (error, response, body) => {
-    const parseBody = JSON.parse(body);
-    console.log(parseBody);
-  });
+  getRecipeDataFromAPI(searchedKey);
 });
 
 app.listen(5000, () => {
   console.log("Listening on port http://localhost:5000");
 });
+
+function getRecipeDataFromAPI(recipeKey) {
+  const api_url = `https://api.edamam.com/search?q=${recipeKey}&app_id=ae974cde&app_key=32d21aa39aab70de0693ee92316b75f0&from=0&to=10&calories=591-722&health=alcohol-free`;
+  request(api_url, (error, response, body) => {
+    const json = JSON.parse(body);
+    console.log(json.hits);
+  });
+}
