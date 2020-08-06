@@ -27,5 +27,8 @@ const getRecipeSearched = (searched) => {
     headers: {
       "content-type": "application/json",
     },
-  })
+  }).then(async (response) => {
+    const result = await response.json();
+    console.log(result);
+  });
 };
