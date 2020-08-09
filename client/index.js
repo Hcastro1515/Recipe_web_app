@@ -27,8 +27,28 @@ const getRecipeSearched = (searched) => {
     headers: {
       "content-type": "application/json",
     },
-  }).then(async (response) => {
-    const result = await response.json();
-    console.log(result);
-  });
+  })
+    .then(async (response) => {
+      const result = await response.json();
+      const resultArray = result.hits;
+      showData(resultArray);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const showData = (data) => {
+  try {
+    data.forEach((item) => {
+      console.log(item.recipe.label);
+      const textElement = document.createElement("h1");
+      textElement.innerHTML = item.recipe.label;
+      loadingElement.style.display = "none";
+      placeholder.style.display = "none";
+      placeholder.appendChild(textElement);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
