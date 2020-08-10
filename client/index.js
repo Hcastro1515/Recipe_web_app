@@ -39,7 +39,7 @@ const getRecipeSearched = (searched) => {
 
 const addDataToPage = (data) => {
   try {
-    data.forEach((item, i) => {
+    data.forEach((item) => {
       //create dom elements
       const cardDiv = document.createElement("div");
       const cardImageContaiener = document.createElement("div");
