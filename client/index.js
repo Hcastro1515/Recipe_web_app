@@ -39,11 +39,39 @@ const getRecipeSearched = (searched) => {
 
 const addDataToPage = (data) => {
   try {
-    data.forEach((item) => {
-      console.log(item.recipe.label);
-      const textElement = document.createElement("h1");
-      textElement.innerHTML = item.recipe.label;
-      placeholder.appendChild(textElement);
+    data.forEach((item, i) => {
+      //create dom elements
+      const cardDiv = document.createElement("div");
+      const cardImageContaiener = document.createElement("div");
+      const cardDataContainer = document.createElement("div");
+      const image = document.createElement("img");
+      const cardLabel = document.createElement("h4");
+      const cardHealthLabel = document.createElement("div");
+
+      //appending child to it's container
+
+      //giving each element a class
+      cardDiv.className = "card-body";
+      cardImageContaiener.className = "card-image_container";
+      cardDataContainer.className = "card-data_container";
+      cardHealthLabel.className = "card-health_label";
+      cardLabel.className = "card-label";
+      image.className = "card-image_container";
+
+      //assignments
+      image.src = item.recipe.image;
+      cardLabel.innerHTML = item.recipe.label;
+      cardHealthLabel.innerHTML = item.recipe.healthLabels;
+
+      cardImageContaiener.appendChild(image);
+      cardDataContainer.appendChild(cardLabel);
+      cardDataContainer.appendChild(cardHealthLabel);
+
+      cardDiv.appendChild(cardImageContaiener);
+      cardDiv.appendChild(cardDataContainer);
+      placeholder.appendChild(cardDiv);
+
+      console.log(item)
     });
   } catch (error) {
     console.log(error);
